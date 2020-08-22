@@ -36,6 +36,7 @@ function clickHandler(event) {
     const maxJoltPower = 20;
     const maxWavePower = 25;
 
+
     let maxPower;
 
     switch (weaponChoice.dataset.type) {
@@ -47,8 +48,12 @@ function clickHandler(event) {
             break;
     }
 
-    enemy.damageHp = enemy.damageHp - changeHP(1, maxPower);
-    character.damageHp = character.damageHp - changeHP(1, maxPower);
+    if (weaponChoice.dataset.type === 'wave') {
+        enemy.damageHp = enemy.damageHp - changeHP(1, maxPower);
+    } else {
+        enemy.damageHp = enemy.damageHp - changeHP(1, maxPower);
+        character.damageHp = character.damageHp - changeHP(1, maxPower);
+    }
 
     if (character.damageHp < 0) {
         drawHp('character', 0, character.defaultHp)
@@ -88,8 +93,6 @@ function changeHP(min, max) {
 function drawHp(character, damageHp, defaultHp) {
     let valueContainer,
         progressContainer;
-
-    console.log('1')
 
     switch (character) {
         case 'character':
